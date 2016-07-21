@@ -3,21 +3,24 @@ import java.util.ArrayList;
 
 
 public class filesFromFolder {
-	private File folder =  new File(".");
+	private File folder =  new File(System.getProperty("user.home"));
 	private  ArrayList<File> listOfFiles = new ArrayList<File>();
 	private  ArrayList<String> listOfFilesString = new ArrayList<String>();
 
 
 
 	public void addFilesToList(final File folder) {
-		for (final File fileEntry : folder.listFiles()) {
-			if (fileEntry.isDirectory()) {
-				addFilesToList(fileEntry);
-			} else {
-				this.listOfFiles.add(fileEntry);
-				this.listOfFilesString.add(fileEntry.getName());
+		System.out.println(folder.getName());
+		System.out.println(folder.getName().matches("^[^.].*$"));
+ 			for (final File fileEntry : folder.listFiles()) {
+				if (fileEntry.isDirectory() && fileEntry.canRead()) {
+					addFilesToList(fileEntry);
+				} else {
+					this.listOfFiles.add(fileEntry);
+					this.listOfFilesString.add(fileEntry.getName());
+				}
 			}
-		}
+		 
 	}
 	public filesFromFolder (File inputFolder){
 		this.folder = inputFolder;

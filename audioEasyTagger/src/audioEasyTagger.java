@@ -376,14 +376,13 @@ public class audioEasyTagger extends JFrame {
 
 				// we display the chosen folder in the panel
 				final File selectedFile = f.getSelectedFile();
-
-				try {
+ 				try {
 
 
 					TagAnalyser analyser = new TagAnalyser(selectedFile);
 
 					ArrayList<File> totalListOfFiles = new ArrayList<File>();
-					totalListOfFiles = analyser.getListOfFiles();
+					totalListOfFiles = analyser.getListOfMusicFiles();
 
 					new loadFilesInTable(selectedFile, table,   scrollPane,  scrollPane_Albums, scrollPane_Genre,   
 							scrollPane_Artists,  lblFilesWillBeChanged,  listAlbums, listArtists, listGenres);

@@ -19,6 +19,7 @@ import org.jaudiotagger.tag.TagException;
 
 
 public class TagAnalyser extends filesFromFolder {
+	private  ArrayList<File> listOfMusicFiles = new ArrayList<File>();
 	private  ArrayList<String> listOfArtists = new ArrayList<String>();
 	private  ArrayList<String> listOfAlbums = new ArrayList<String>();
 	private ArrayList<String>  listOfGenres = new ArrayList<String>();
@@ -39,8 +40,7 @@ public class TagAnalyser extends filesFromFolder {
 	public  TagAnalyser(File inputFolder) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
 
 		super(inputFolder);
-
-		for (File file :this.getListOfFiles()){
+ 		for (File file :this.getListOfFiles()){
 			//here we find out the extension of the file
 			String extension = "";
 
@@ -50,24 +50,26 @@ public class TagAnalyser extends filesFromFolder {
 			}
 
 			// here we add the tags to the corresponding lists:
+			String artist= "";
+			String album = "";
+			String genre = "";
+			String title = "";
+			
 			if (extension.equalsIgnoreCase("mp3") || extension.equalsIgnoreCase("flac")|| extension.equalsIgnoreCase("ogg")){
 				AudioFile mp3file = AudioFileIO.read(file);
 				Tag tag = mp3file.getTag();
-				String artist= "";
-				String album = "";
-				String genre = "";
-				String title = "";
-
 				artist= tag.getFirst(FieldKey.ARTIST);
 				album = tag.getFirst(FieldKey.ALBUM);
 				genre = tag.getFirst(FieldKey.GENRE);
 				title = tag.getFirst(FieldKey.TITLE);
+				
+				this.listOfMusicFiles.add(file);
 				this.listOfArtists.add(artist);
 				this.listOfAlbums.add(album);
 				this.listOfGenres.add(genre);
 				this.listOfTitles.add(title);
-
 			}
+			
 		}
 
 
@@ -142,6 +144,14 @@ public class TagAnalyser extends filesFromFolder {
 	}
 
 	//getters and setters:
+
+	public ArrayList<File> getListOfMusicFiles() {
+		return listOfMusicFiles;
+	}
+
+	public void setListOfMusicFiles(ArrayList<File> listOfMusicFiles) {
+		this.listOfMusicFiles = listOfMusicFiles;
+	}
 
 	public ArrayList<String> getListOfArtists() {
 		return listOfArtists;
