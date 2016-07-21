@@ -10,9 +10,8 @@ public class filesFromFolder {
 
 
 	public void addFilesToList(final File folder) {
-		System.out.println(folder.getName());
-		System.out.println(folder.getName().matches("^[^.].*$"));
  			for (final File fileEntry : folder.listFiles()) {
+ 				// we make sure that we are considering accessible folders only. We are using recursion here
 				if (fileEntry.isDirectory() && fileEntry.canRead()) {
 					addFilesToList(fileEntry);
 				} else {
